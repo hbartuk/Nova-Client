@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="images/Nova_icon.png" alt="Nova Client Logo" width="200"/>
+  <img src="images/Nova_Icon.png" alt="Nova Client Logo" width="200"/>
 </p>
 
 # Nova Client: Advanced MITM Utility for Minecraft Bedrock
