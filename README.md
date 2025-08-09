@@ -98,7 +98,6 @@ Nova Client is licensed under the **GNU General Public License v3.0 (GPLv3)**.
 ### ❌ Prohibited Uses
 
 - Distributing modified versions **without** including source code and the GPLv3 license.
-- Using the Nova Client name or logo in a way that implies official affiliation or endorsement.
 - Claiming ownership of the project or its original source code.
 
 For full license information, visit:  
