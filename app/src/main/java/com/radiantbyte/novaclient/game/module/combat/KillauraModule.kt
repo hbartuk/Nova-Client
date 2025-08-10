@@ -18,13 +18,13 @@ class KillauraModule : Module("killaura", ModuleCategory.Combat) {
     private var mobsOnly by boolValue("mobs_only", false)
     private var tpAuraEnabled by boolValue("tp_aura", false)
 
-    private var rangeValue by floatValue("range", 3.7f, 2f..7f)
+    private var rangeValue by floatValue("range", 3.7f, 2f..12f)
     private var attackInterval by intValue("delay", 5, 1..20)
     private var cpsValue by intValue("cps", 10, 1..20)
     private var boost by intValue("packets", 1, 1..10)
     private var tpspeed by intValue("tp_speed", 1000, 100..2000)
 
-    private var distanceToKeep by floatValue("keep_distance", 2.0f, 1f..5f)
+    private var distanceToKeep by floatValue("keep_distance", 2.0f, 1f..12f)
 
     private var lastAttackTime = 0L
     private var tpCooldown = 0L
