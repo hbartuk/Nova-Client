@@ -109,7 +109,7 @@ class TriggerBotModule : Module("trigger_bot", ModuleCategory.Combat) {
 
     private fun Player.isBot(): Boolean {
         if (this is LocalPlayer) return false
-        val playerList = session.level.playerMap[this.uuid] ?: return true
+        val playerList = session.level.playerMap[this.uuid] ?: return false // Changed: treat unknown players as real players
         return playerList.name.isBlank()
     }
 }

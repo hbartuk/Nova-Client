@@ -1,7 +1,5 @@
 package com.radiantbyte.novaclient.game.entity
 
-import com.radiantbyte.novaclient.game.entity.Entity
-
 class EntityUnknown(runtimeEntityId: Long, uniqueEntityId: Long, val identifier: String) :
     Entity(runtimeEntityId, uniqueEntityId) {
 

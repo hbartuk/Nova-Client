@@ -54,7 +54,7 @@ class PositionLoggerModule : Module("position_logger", ModuleCategory.Misc) {
 
     private fun isBot(player: Player): Boolean {
         if (player is LocalPlayer) return false
-        val playerList = session.level.playerMap[player.uuid] ?: return true
+        val playerList = session.level.playerMap[player.uuid] ?: return false // Changed: treat unknown players as real players
         return playerList.name.isBlank()
     }
 

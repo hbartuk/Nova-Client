@@ -1,7 +1,5 @@
 package com.radiantbyte.novaclient.game.entity
 
-import com.radiantbyte.novaclient.game.entity.Entity
-
 class Item(runtimeEntityId: Long, uniqueEntityId: Long) :
     Entity(runtimeEntityId, uniqueEntityId) {
 
