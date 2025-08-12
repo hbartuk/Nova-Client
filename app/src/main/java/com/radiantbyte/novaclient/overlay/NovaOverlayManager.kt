@@ -89,6 +89,32 @@ object NovaOverlayManager {
         }
     }
 
+    fun updateOverlayIcon() {
+        overlayButton?.let { button ->
+            context?.let { ctx ->
+                try {
+                    val windowManager = ctx.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+                    windowManager.updateViewLayout(button.composeView, button.layoutParams)
+                } catch (e: Exception) {
+                    // Handle exception silently
+                }
+            }
+        }
+    }
+
+    fun updateOverlayBorder() {
+        overlayButton?.let { button ->
+            context?.let { ctx ->
+                try {
+                    val windowManager = ctx.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+                    windowManager.updateViewLayout(button.composeView, button.layoutParams)
+                } catch (e: Exception) {
+                    // Handle exception silently
+                }
+            }
+        }
+    }
+
 }
 
 // Extension functions for OverlayWindow

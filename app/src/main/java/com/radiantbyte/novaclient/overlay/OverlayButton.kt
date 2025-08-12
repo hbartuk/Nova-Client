@@ -28,12 +28,15 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.text.font.FontWeight
+import com.radiantbyte.novaclient.R
 import java.io.File
 import kotlin.math.min
 
@@ -74,20 +77,20 @@ class OverlayButton : OverlayWindow() {
         val customIconPath = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
             .getString("overlay_icon_path", null)
 
-        val icon = if (customIconPath != null) {
+        val customIcon = if (customIconPath != null) {
             try {
                 val file = File(customIconPath)
                 if (file.exists()) {
                     val bitmap = BitmapFactory.decodeFile(file.absolutePath)
-                    bitmap?.asImageBitmap() ?: Icons.Rounded.Construction
+                    bitmap?.asImageBitmap()
                 } else {
-                    Icons.Rounded.Construction
+                    null
                 }
             } catch (e: Exception) {
-                Icons.Rounded.Construction
+                null
             }
         } else {
-            Icons.Rounded.Construction
+            null
         }
 
         val borderColor = Color(
@@ -126,12 +129,23 @@ class OverlayButton : OverlayWindow() {
                     ),
                 contentAlignment = androidx.compose.ui.Alignment.Center
             ) {
-                Text(
-                    text = "⚡",
-                    style = MaterialTheme.typography.titleLarge,
-                    color = borderColor,
-                    fontWeight = FontWeight.Bold
-                )
+                if (customIcon != null) {
+                    // Display custom icon - bigger size for Classic theme
+                    Image(
+                        bitmap = customIcon,
+                        contentDescription = "Custom Overlay Icon",
+                        modifier = Modifier.size(40.dp),
+                        contentScale = ContentScale.Fit
+                    )
+                } else {
+                    // Display default nova_overlay_icon.png
+                    Image(
+                        painter = painterResource(id = R.drawable.nova_overlay_icon),
+                        contentDescription = "Nova Overlay Icon",
+                        modifier = Modifier.size(40.dp),
+                        contentScale = ContentScale.Fit
+                    )
+                }
             }
         }
     }

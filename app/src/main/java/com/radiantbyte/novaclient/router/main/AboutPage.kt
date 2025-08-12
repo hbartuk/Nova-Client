@@ -139,7 +139,7 @@ fun AboutPageContent() {
                                 color = NovaColors.Error
                             )
                             Text(
-                                "• Distributing modified versions without including source code and the GPLv3 license\n• Using the Nova Client name or logo in a way that implies official affiliation or endorsement\n• Claiming ownership of the project or its original source code",
+                                "• Distributing modified versions without including source code and the GPLv3 license\n• Claiming ownership of the project or its original source code",
                                 style = MaterialTheme.typography.bodySmall,
                                 color = NovaColors.OnSurface
                             )

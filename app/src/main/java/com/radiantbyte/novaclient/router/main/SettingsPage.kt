@@ -79,6 +79,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.foundation.shape.CircleShape
 import com.radiantbyte.novaclient.overlay.GUITheme
+import com.radiantbyte.novaclient.overlay.NovaOverlayManager
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -145,8 +146,9 @@ fun SettingsPageContent() {
                         sharedPreferences.edit {
                             putString("overlay_icon_path", iconFile.absolutePath)
                         }
-                        // Notify overlay to update icon
+                        // Notify both overlay systems to update icon
                         OverlayManager.updateOverlayIcon()
+                        NovaOverlayManager.updateOverlayIcon()
                     }
                 } catch (e: Exception) {
                     coroutineScope.launch {
@@ -675,6 +677,7 @@ fun SettingsPageContent() {
                                                 putInt("overlay_border_color", colors[index].toArgb())
                                             }
                                             OverlayManager.updateOverlayBorder()
+                                            NovaOverlayManager.updateOverlayBorder()
                                             showColorPickerDialog = false
                                         }
                                 )

@@ -11,7 +11,7 @@
     <string name="stop">Stop</string>
     <string name="overlay_permission_denied">Overlay permission denied</string>
     <string name="notification_permission_denied">Notification permission denied</string>
-    <string name="request_overlay_permission">We need overlay permission to display the function floating window</string>
+    <string name="request_overlay_permission">Overlay permission is required to show the floating window for this feature.</string>
     <string name="game_settings">Game Settings</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
@@ -53,15 +53,15 @@
     <string name="overlay_opacity_description">Adjust transparency of overlay and shortcut buttons</string>
     <string name="overlay_border_color">Overlay Border Color</string>
     <string name="overlay_border_color_description">Change the border color of the floating button</string>
-    <string name="request_ignore_battery_optimization">We need to ignore battery optimization to stay connected</string>
+    <string name="request_ignore_battery_optimization">Disable battery optimization to keep the connection active.</string>
     <string name="ignore_battery_optimization_denied">Ignore battery optimization permission denied</string>
     <string name="shortcut">Shortcut</string>
     <string name="check_updates_and_news">View Updates &amp; News</string>
-    <string name="crash_happened">Crash Happened</string>
-    <string name="cannot_back">A crash has occurred and you are not allowed to return. You can only restart the app.</string>
+    <string name="crash_happened">A crash occurred.</string>
+    <string name="cannot_back">The app encountered a problem and must be restarted.</string>
     <string name="effect">Effect</string>
     <string name="login_in">Log in using %s</string>
-    <string name="fetch_account_successfully">Fetch account successfully</string>
+    <string name="fetch_account_successfully">Successfully fetched account.</string>
     <string name="xbox_device_code">Xbox device code</string>
     <string name="refresh">Refresh</string>
 </resources>

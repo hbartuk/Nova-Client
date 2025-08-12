@@ -1,9 +1,11 @@
 package com.radiantbyte.novaclient.overlay
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.os.Build
 import android.view.WindowManager
 import androidx.compose.animation.core.*
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -18,13 +20,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.radiantbyte.novaclient.R
 import com.radiantbyte.novaclient.ui.theme.NovaColors
+import java.io.File
 
 class NovaOverlayButton : OverlayWindow() {
 
@@ -55,6 +60,26 @@ class NovaOverlayButton : OverlayWindow() {
             animationSpec = spring(stiffness = Spring.StiffnessHigh),
             label = "press_scale"
         )
+
+        // Load custom icon if available
+        val customIconPath = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
+            .getString("overlay_icon_path", null)
+
+        val customIcon = if (customIconPath != null) {
+            try {
+                val file = File(customIconPath)
+                if (file.exists()) {
+                    val bitmap = BitmapFactory.decodeFile(file.absolutePath)
+                    bitmap?.asImageBitmap()
+                } else {
+                    null
+                }
+            } catch (e: Exception) {
+                null
+            }
+        } else {
+            null
+        }
 
         Box(
             modifier = Modifier
@@ -97,12 +122,23 @@ class NovaOverlayButton : OverlayWindow() {
                     .clip(CircleShape),
                 contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = "N",
-                    style = MaterialTheme.typography.displaySmall,
-                    color = Color.Cyan,
-                    fontWeight = FontWeight.Bold
-                )
+                if (customIcon != null) {
+                    // Display custom icon
+                    Image(
+                        bitmap = customIcon,
+                        contentDescription = "Custom Overlay Icon",
+                        modifier = Modifier.size(48.dp),
+                        contentScale = ContentScale.Fit
+                    )
+                } else {
+                    // Display default nova_overlay_icon.png
+                    Image(
+                        painter = painterResource(id = R.drawable.nova_overlay_icon),
+                        contentDescription = "Nova Overlay Icon",
+                        modifier = Modifier.size(48.dp),
+                        contentScale = ContentScale.Fit
+                    )
+                }
             }
         }
         

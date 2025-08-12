@@ -9,7 +9,7 @@ import org.cloudburstmc.protocol.bedrock.packet.PlayerAuthInputPacket
 
 class AntiKnockbackModule : Module("anti_knockback", ModuleCategory.Combat) {
 
-    private val knockbackThreshold by floatValue("threshold", 1.0f, 0.1f..1.0f)
+    private val knockbackThreshold by floatValue("threshold", 0.1f, 0.1f..1.0f)
     private var lastValidMotion = Vector3f.ZERO
 
     override fun beforePacketBound(interceptablePacket: InterceptablePacket) {

@@ -1,7 +1,6 @@
 package com.radiantbyte.novaclient.game.inventory
 
 import com.radiantbyte.novaclient.game.entity.Entity
-import com.radiantbyte.novaclient.game.inventory.AbstractInventory
 import org.cloudburstmc.protocol.bedrock.data.inventory.ContainerId
 import org.cloudburstmc.protocol.bedrock.data.inventory.ItemData
 import org.cloudburstmc.protocol.bedrock.packet.BedrockPacket
