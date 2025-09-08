@@ -3,6 +3,7 @@ package com.radiantbyte.novaclient.game.module.particle
 import com.radiantbyte.novaclient.game.InterceptablePacket
 import com.radiantbyte.novaclient.game.Module
 import com.radiantbyte.novaclient.game.ModuleCategory
+import net.kyori.adventure.text.Component
 import org.cloudburstmc.math.vector.Vector3f
 import org.cloudburstmc.protocol.bedrock.data.LevelEvent
 import org.cloudburstmc.protocol.bedrock.packet.LevelEventPacket
@@ -34,8 +35,7 @@ class BubbleParticleModule : Module("bubble_particle", ModuleCategory.Particle) 
 
         val textPacket = TextPacket().apply {
             type = TextPacket.Type.RAW
-            isNeedsTranslation = false
-            message = msg
+            message = Component.text(msg)
             xuid = ""
             sourceName = ""
         }

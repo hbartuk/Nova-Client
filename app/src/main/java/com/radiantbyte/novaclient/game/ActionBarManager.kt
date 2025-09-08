@@ -1,5 +1,6 @@
 package com.radiantbyte.novaclient.game
 
+import net.kyori.adventure.text.Component
 import org.cloudburstmc.protocol.bedrock.packet.SetTitlePacket
 
 object ActionBarManager {
@@ -24,7 +25,7 @@ object ActionBarManager {
 
         session.clientBound(SetTitlePacket().apply {
             type = SetTitlePacket.Type.ACTIONBAR
-            text = combinedText
+            text = Component.text(combinedText)
             fadeInTime = 0
             fadeOutTime = 0
             stayTime = 2

@@ -3,6 +3,7 @@ package com.radiantbyte.novaclient.game
 import com.radiantbyte.novaclient.game.entity.LocalPlayer
 import com.radiantbyte.novaclient.game.world.Level
 import com.radiantbyte.novarelay.NovaRelaySession
+import net.kyori.adventure.text.Component
 import org.cloudburstmc.protocol.bedrock.packet.BedrockPacket
 import org.cloudburstmc.protocol.bedrock.packet.TextPacket
 
@@ -57,12 +58,11 @@ class GameSession(val novaRelaySession: NovaRelaySession) : ComposedPacketHandle
     fun displayClientMessage(message: String, type: TextPacket.Type = TextPacket.Type.RAW) {
         val textPacket = TextPacket()
         textPacket.type = type
-        textPacket.isNeedsTranslation = false
         textPacket.sourceName = ""
-        textPacket.message = message
+        textPacket.message = Component.text(message)
         textPacket.xuid = ""
         textPacket.platformChatId = ""
-        textPacket.filteredMessage = ""
+        textPacket.filteredMessage = Component.empty()
         clientBound(textPacket)
     }
 

@@ -8,6 +8,8 @@ import com.radiantbyte.novaclient.game.entity.EntityUnknown
 import com.radiantbyte.novaclient.game.entity.LocalPlayer
 import com.radiantbyte.novaclient.game.entity.MobList
 import com.radiantbyte.novaclient.game.entity.Player
+import net.kyori.adventure.text.Component
+import org.cloudburstmc.protocol.bedrock.codec.BedrockLegacyTextSerializer
 import org.cloudburstmc.math.vector.Vector3f
 import org.cloudburstmc.protocol.bedrock.packet.MoveEntityAbsolutePacket
 import org.cloudburstmc.protocol.bedrock.packet.PlayerAuthInputPacket
@@ -55,7 +57,8 @@ class PositionLoggerModule : Module("position_logger", ModuleCategory.Misc) {
     private fun isBot(player: Player): Boolean {
         if (player is LocalPlayer) return false
         val playerList = session.level.playerMap[player.uuid] ?: return false // Changed: treat unknown players as real players
-        return playerList.name.isBlank()
+        val nameText = BedrockLegacyTextSerializer.getInstance().serialize(playerList.name)
+        return nameText.isBlank()
     }
 
     override fun beforePacketBound(interceptablePacket: InterceptablePacket) {
@@ -174,8 +177,7 @@ class PositionLoggerModule : Module("position_logger", ModuleCategory.Misc) {
     private fun sendMessage(msg: String) {
         val textPacket = TextPacket().apply {
             type = TextPacket.Type.RAW
-            isNeedsTranslation = false
-            message = msg
+            message = Component.text(msg)
             xuid = ""
             sourceName = ""
         }

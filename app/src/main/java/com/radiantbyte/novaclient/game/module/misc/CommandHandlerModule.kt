@@ -4,6 +4,8 @@ import com.radiantbyte.novaclient.game.InterceptablePacket
 import com.radiantbyte.novaclient.game.Module
 import com.radiantbyte.novaclient.game.ModuleCategory
 import com.radiantbyte.novaclient.game.ModuleManager
+import net.kyori.adventure.text.Component
+import org.cloudburstmc.protocol.bedrock.codec.BedrockLegacyTextSerializer
 import org.cloudburstmc.protocol.bedrock.packet.TextPacket
 
 class CommandHandlerModule : Module("command_handler", ModuleCategory.Misc, true, true) {
@@ -14,7 +16,7 @@ class CommandHandlerModule : Module("command_handler", ModuleCategory.Misc, true
 
         val packet = interceptablePacket.packet
         if (packet is TextPacket && packet.type == TextPacket.Type.CHAT) {
-            val message = packet.message
+            val message = BedrockLegacyTextSerializer.getInstance().serialize(packet.message)
             if (!message.startsWith(prefix)) return
 
             interceptablePacket.intercept()

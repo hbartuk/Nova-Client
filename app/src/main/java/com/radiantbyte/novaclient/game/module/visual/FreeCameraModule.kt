@@ -7,6 +7,7 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import net.kyori.adventure.text.Component
 import org.cloudburstmc.math.vector.Vector3f
 import org.cloudburstmc.protocol.bedrock.data.Ability
 import org.cloudburstmc.protocol.bedrock.data.AbilityLayer
@@ -117,8 +118,7 @@ class FreeCameraModule : Module("free_camera", ModuleCategory.Visual) {
     private fun sendCountdownMessage(message: String) {
         val textPacket = TextPacket().apply {
             type = TextPacket.Type.RAW
-            isNeedsTranslation = false
-            this.message = message
+            this.message = Component.text(message)
             xuid = ""
             sourceName = ""
         }

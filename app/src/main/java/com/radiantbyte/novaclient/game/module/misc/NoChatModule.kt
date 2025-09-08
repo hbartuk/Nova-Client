@@ -3,6 +3,8 @@ package com.radiantbyte.novaclient.game.module.misc
 import com.radiantbyte.novaclient.game.InterceptablePacket
 import com.radiantbyte.novaclient.game.Module
 import com.radiantbyte.novaclient.game.ModuleCategory
+import net.kyori.adventure.text.Component
+import org.cloudburstmc.protocol.bedrock.codec.BedrockLegacyTextSerializer
 import org.cloudburstmc.protocol.bedrock.packet.TextPacket
 
 class NoChatModule : Module("no_chat", ModuleCategory.Misc) {
@@ -54,14 +56,16 @@ class NoChatModule : Module("no_chat", ModuleCategory.Misc) {
                 else -> {}
             }
 
+            val messageText = BedrockLegacyTextSerializer.getInstance().serialize(packet.message)
             session.level.playerMap.values.forEach { player ->
-                if (blockPlayerChat && packet.message.contains(player.name)) {
+                val playerName = BedrockLegacyTextSerializer.getInstance().serialize(player.name)
+                if (blockPlayerChat && messageText.contains(playerName)) {
                     interceptablePacket.intercept()
                     return
                 }
             }
 
-            if (blockJoinLeaveMessages && (packet.message.contains("joined") || packet.message.contains("left"))) {
+            if (blockJoinLeaveMessages && (messageText.contains("joined") || messageText.contains("left"))) {
                 interceptablePacket.intercept()
                 return
             }
