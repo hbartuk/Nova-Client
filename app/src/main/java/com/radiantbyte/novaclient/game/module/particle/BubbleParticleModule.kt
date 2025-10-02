@@ -35,7 +35,7 @@ class BubbleParticleModule : Module("bubble_particle", ModuleCategory.Particle) 
 
         val textPacket = TextPacket().apply {
             type = TextPacket.Type.RAW
-            message = Component.text(msg)
+            message = msg
             xuid = ""
             sourceName = ""
         }

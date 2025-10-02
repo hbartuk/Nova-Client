@@ -9,7 +9,6 @@ import com.radiantbyte.novaclient.game.entity.LocalPlayer
 import com.radiantbyte.novaclient.game.entity.MobList
 import com.radiantbyte.novaclient.game.entity.Player
 import org.cloudburstmc.math.vector.Vector3f
-import org.cloudburstmc.protocol.bedrock.codec.BedrockLegacyTextSerializer
 import org.cloudburstmc.protocol.bedrock.packet.MovePlayerPacket
 import org.cloudburstmc.protocol.bedrock.packet.PlayerAuthInputPacket
 
@@ -78,7 +77,7 @@ class KillauraModule : Module("killaura", ModuleCategory.Combat) {
 
         val newPosition = Vector3f.from(
             targetPosition.x - normalizedDirection.x * distance,
-            playerPosition.y, 
+            playerPosition.y,
             targetPosition.z - normalizedDirection.z * distance
         )
 
@@ -129,8 +128,7 @@ class KillauraModule : Module("killaura", ModuleCategory.Combat) {
     private fun Player.isBot(): Boolean {
         if (this is LocalPlayer) return false
         val playerList = session.level.playerMap[this.uuid] ?: return false // Changed: treat unknown players as real players
-        val nameText = BedrockLegacyTextSerializer.getInstance().serialize(playerList.name)
-        return nameText.isBlank()
+        return playerList.name.isBlank()
     }
 
     private fun searchForClosestEntities(): List<Entity> {

@@ -59,10 +59,10 @@ class GameSession(val novaRelaySession: NovaRelaySession) : ComposedPacketHandle
         val textPacket = TextPacket()
         textPacket.type = type
         textPacket.sourceName = ""
-        textPacket.message = Component.text(message)
+        textPacket.message = message
         textPacket.xuid = ""
         textPacket.platformChatId = ""
-        textPacket.filteredMessage = Component.empty()
+        textPacket.filteredMessage = ""
         clientBound(textPacket)
     }
 

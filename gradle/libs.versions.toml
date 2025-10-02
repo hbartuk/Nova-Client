@@ -26,7 +26,6 @@ snappy = "2.0.2"
 jose4j = "0.9.6"
 minecraft-auth = "4.1.2"
 jackson-databind = "2.20.0"
-adventure = "4.24.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -70,7 +69,6 @@ snappy = { group = "io.airlift", name = "aircompressor", version.ref = "snappy" 
 jose4j = { group = "org.bitbucket.b_c", name = "jose4j", version.ref = "jose4j" }
 minecraft-auth = { group = "net.raphimc", name = "MinecraftAuth", version.ref = "minecraft-auth" }
 jackson-databind = { group = "com.fasterxml.jackson.core", name = "jackson-databind", version.ref = "jackson-databind" }
-adventure-text = { group = "net.kyori", name = "adventure-text-serializer-plain", version.ref = "adventure" }
 
 [bundles]
 netty = [ "netty-common", "netty-buffer", "netty-codec", "netty-transport", "netty-transport-native-unix-common" ]

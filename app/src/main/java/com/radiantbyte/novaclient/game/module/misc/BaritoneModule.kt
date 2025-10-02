@@ -3,8 +3,6 @@ package com.radiantbyte.novaclient.game.module.misc
 import com.radiantbyte.novaclient.game.InterceptablePacket
 import com.radiantbyte.novaclient.game.Module
 import com.radiantbyte.novaclient.game.ModuleCategory
-import net.kyori.adventure.text.Component
-import org.cloudburstmc.protocol.bedrock.codec.BedrockLegacyTextSerializer
 import org.cloudburstmc.math.vector.Vector3f
 import org.cloudburstmc.protocol.bedrock.data.PlayerAuthInputData
 import org.cloudburstmc.protocol.bedrock.packet.PlayerAuthInputPacket
@@ -30,10 +28,10 @@ class BaritoneModule : Module("baritone", ModuleCategory.Misc) {
         val packet = interceptablePacket.packet
 
         if (packet is TextPacket && packet.type == TextPacket.Type.CHAT) {
-            val message = BedrockLegacyTextSerializer.getInstance().serialize(packet.message)
+            val message = packet.message
             if (message.startsWith(".goto")) {
                 interceptablePacket.intercept()
-                handleGotoCommand(message)
+                handleGotoCommand(message as String)
                 return
             }
         }

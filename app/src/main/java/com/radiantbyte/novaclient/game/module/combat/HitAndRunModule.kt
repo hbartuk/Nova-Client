@@ -7,7 +7,6 @@ import com.radiantbyte.novaclient.game.entity.Entity
 import com.radiantbyte.novaclient.game.entity.LocalPlayer
 import com.radiantbyte.novaclient.game.entity.Player
 import org.cloudburstmc.math.vector.Vector3f
-import org.cloudburstmc.protocol.bedrock.codec.BedrockLegacyTextSerializer
 import org.cloudburstmc.protocol.bedrock.packet.PlayerAuthInputPacket
 import org.cloudburstmc.protocol.bedrock.packet.SetEntityMotionPacket
 import kotlin.math.cos
@@ -61,8 +60,7 @@ class HitAndRunModule : Module("hitandrun", ModuleCategory.Combat) {
     private fun isBot(player: Player): Boolean {
         if (player is LocalPlayer) return false
         val playerList = session.level.playerMap[player.uuid] ?: return true
-        val nameText = BedrockLegacyTextSerializer.getInstance().serialize(playerList.name)
-        return nameText.isBlank()
+        return playerList.name.isBlank()
     }
 
     private fun executeCombo(target: Entity) {
