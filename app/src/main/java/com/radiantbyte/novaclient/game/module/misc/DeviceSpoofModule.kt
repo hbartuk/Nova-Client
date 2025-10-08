@@ -1,4 +1,4 @@
-package com.retrivedmods.wclient.game.module.misc
+package com.radiantbyte.novaclient.game.module.misc
 
 import com.google.gson.Gson
 import com.google.gson.JsonParser
