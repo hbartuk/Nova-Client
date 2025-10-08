@@ -6,7 +6,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.google.gson.JsonParser
 import com.radiantbyte.novaclient.application.AppContext
-import com.radiantbyte.novaclient.game.RealmsAuthFlow
 import com.radiantbyte.novaclient.service.RealmsManager
 import com.radiantbyte.novarelay.util.AuthUtils
 import com.radiantbyte.novarelay.util.refresh
@@ -34,8 +33,16 @@ object AccountManager {
         private set
 
     private val TOKEN_REFRESH_INTERVAL_MS = TimeUnit.MINUTES.toMillis(30)
-
     private val TOKEN_REFRESH_THRESHOLD_MS = TimeUnit.HOURS.toMillis(2)
+
+    // ✅ Исправленный builder с правильными scope'ами и client_id
+    private val FIXED_BEDROCK_DEVICE_CODE_LOGIN = MinecraftAuth.builder()
+        .withClientId("00000000402B5328")
+        .withScope("XboxLive.signin")
+        .withScope("offline_access")
+        .withScope("service::user.auth.xboxlive.com::MBI_SSL")
+        .deviceCode()
+        .buildBedrockLoginChainStep(true, true)
 
     init {
         val fetchedAccounts = fetchAccounts()
@@ -49,7 +56,8 @@ object AccountManager {
     }
 
     fun addAccount(fullBedrockSession: FullBedrockSession) {
-        val existingAccount = _accounts.find { it.mcChain.displayName == fullBedrockSession.mcChain.displayName }
+        val existingAccount =
+            _accounts.find { it.mcChain.displayName == fullBedrockSession.mcChain.displayName }
         if (existingAccount != null) {
             _accounts.remove(existingAccount)
         }
@@ -64,8 +72,7 @@ object AccountManager {
                 val json = if (fullBedrockSession.realmsXsts != null) {
                     RealmsAuthFlow.BEDROCK_DEVICE_CODE_LOGIN_WITH_REALMS.toJson(fullBedrockSession)
                 } else {
-                    println("No Realms token available, saving with regular auth flow")
-                    MinecraftAuth.BEDROCK_DEVICE_CODE_LOGIN.toJson(fullBedrockSession)
+                    FIXED_BEDROCK_DEVICE_CODE_LOGIN.toJson(fullBedrockSession)
                 }
                 file.resolve("${fullBedrockSession.mcChain.displayName}.json")
                     .writeText(AuthUtils.gson.toJson(json))
@@ -73,7 +80,7 @@ object AccountManager {
             } catch (e: Exception) {
                 println("Failed to save account with Realms support, trying fallback: ${e.message}")
                 try {
-                    val json = MinecraftAuth.BEDROCK_DEVICE_CODE_LOGIN.toJson(fullBedrockSession)
+                    val json = FIXED_BEDROCK_DEVICE_CODE_LOGIN.toJson(fullBedrockSession)
                     file.resolve("${fullBedrockSession.mcChain.displayName}.json")
                         .writeText(AuthUtils.gson.toJson(json))
                     println("Successfully saved account with fallback method: ${fullBedrockSession.mcChain.displayName}")
@@ -131,7 +138,7 @@ object AccountManager {
                             .fromJson(JsonParser.parseString(child.readText()).asJsonObject)
                     } catch (e: Exception) {
                         println("Failed to load account with Realms support from ${child.name}, trying legacy format: ${e.message}")
-                        MinecraftAuth.BEDROCK_DEVICE_CODE_LOGIN
+                        FIXED_BEDROCK_DEVICE_CODE_LOGIN
                             .fromJson(JsonParser.parseString(child.readText()).asJsonObject)
                     }
                     accounts.add(account)
@@ -253,14 +260,14 @@ object AccountManager {
             val json = if (account.realmsXsts != null) {
                 RealmsAuthFlow.BEDROCK_DEVICE_CODE_LOGIN_WITH_REALMS.toJson(account)
             } else {
-                MinecraftAuth.BEDROCK_DEVICE_CODE_LOGIN.toJson(account)
+                FIXED_BEDROCK_DEVICE_CODE_LOGIN.toJson(account)
             }
             file.resolve("${account.mcChain.displayName}.json")
                 .writeText(AuthUtils.gson.toJson(json))
         } catch (e: Exception) {
             println("Failed to save account with Realms support, trying fallback: ${e.message}")
             try {
-                val json = MinecraftAuth.BEDROCK_DEVICE_CODE_LOGIN.toJson(account)
+                val json = FIXED_BEDROCK_DEVICE_CODE_LOGIN.toJson(account)
                 file.resolve("${account.mcChain.displayName}.json")
                     .writeText(AuthUtils.gson.toJson(json))
             } catch (fallbackException: Exception) {
