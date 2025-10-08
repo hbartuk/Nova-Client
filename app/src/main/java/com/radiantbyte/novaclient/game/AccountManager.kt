@@ -41,8 +41,8 @@ object AccountManager {
         .withScope("XboxLive.signin")
         .withScope("offline_access")
         .withScope("service::user.auth.xboxlive.com::MBI_SSL")
-        .deviceCode()
-        .buildBedrockLoginChainStep(true, true)
+        .msaDeviceCode() // исправлено для старой версии API
+        .buildMinecraftBedrockChainStep(true, true)
 
     init {
         val fetchedAccounts = fetchAccounts()
