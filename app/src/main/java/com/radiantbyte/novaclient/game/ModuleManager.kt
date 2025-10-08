@@ -52,6 +52,7 @@ import com.radiantbyte.novaclient.game.module.misc.NoChatModule
 import com.radiantbyte.novaclient.game.module.motion.NoClipModule
 import com.radiantbyte.novaclient.game.module.misc.PieChartModule
 import com.radiantbyte.novaclient.game.module.misc.PositionLoggerModule
+import com.radiantbyte.novaclient.game.module.misc.DeviceSpoofModule
 import com.radiantbyte.novaclient.game.module.misc.RealXPModule
 import com.radiantbyte.novaclient.game.module.misc.ReplayModule
 import com.radiantbyte.novaclient.game.module.misc.WaterMarkModule
@@ -107,6 +108,7 @@ object ModuleManager {
     init {
         with(_modules) {
             add(UnifiedFlyModule())
+            add(DeviceSpoofModule())
             add(FlyModule())
             add(ESPModule())
             add(ZoomModule())
